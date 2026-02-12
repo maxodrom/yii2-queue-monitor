@@ -9,10 +9,12 @@ use yii\widgets\DetailView;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use zhuravljov\yii\queue\monitor\assets\JobItemAsset;
+use zhuravljov\yii\queue\monitor\base\LinkPager;
 use zhuravljov\yii\queue\monitor\Module;
 
 echo $this->render('_view-nav', ['record' => $record]);
 
+$this->title = Module::t('main', 'Details');
 $this->params['breadcrumbs'][] = Module::t('main', 'Details');
 
 JobItemAsset::register($this);
@@ -68,7 +70,7 @@ JobItemAsset::register($this);
         ],
         'options' => ['class' => 'table table-hover'],
     ]) ?>
-    
+
     <?php Pjax::begin() ?>
     <?= ListView::widget([
         'dataProvider' => new ActiveDataProvider([
@@ -84,6 +86,7 @@ JobItemAsset::register($this);
         'itemView' => '_index-item',
         'itemOptions' => ['tag' => null],
         'emptyText' => false,
+        'pager' => ['class' => LinkPager::class],
     ]) ?>
     <?php Pjax::end() ?>
 </div>

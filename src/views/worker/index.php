@@ -4,14 +4,16 @@
  * @var WorkerFilter $filter
  */
 
-use yii\bootstrap\Html;
+use yii\bootstrap5\Html;
 use yii\data\ActiveDataProvider;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use zhuravljov\yii\queue\monitor\base\LinkPager;
 use zhuravljov\yii\queue\monitor\filters\WorkerFilter;
 use zhuravljov\yii\queue\monitor\Module;
 use zhuravljov\yii\queue\monitor\records\WorkerRecord;
 
+$this->title = Module::t('main', 'Queue Monitor');
 $this->params['breadcrumbs'][] = Module::t('main', 'Workers');
 
 $format = Module::getInstance()->formatter;
@@ -51,7 +53,7 @@ $format = Module::getInstance()->formatter;
                 'template' => '{stop}',
                 'buttons' => [
                     'stop' => function ($url) {
-                        return Html::a(Html::icon('stop'), $url, [
+                        return Html::a(Html::tag('i', '', ['class' => 'bi bi-stop-fill']), $url, [
                             'data' => ['method' => 'post', 'confirm' => Yii::t('yii', 'Are you sure?')],
                             'title' => Module::t('main', 'Stop the worker.'),
                         ]);
@@ -82,5 +84,6 @@ $format = Module::getInstance()->formatter;
             ]);
             return Html::tag('tr', Html::tag('th', $format->asText($groupTitle), ['colspan' => 6]));
         },
+        'pager' => ['class' => LinkPager::class],
     ]) ?>
 </div>

@@ -8,9 +8,12 @@ use yii\data\ActiveDataProvider;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use zhuravljov\yii\queue\monitor\assets\JobItemAsset;
+use zhuravljov\yii\queue\monitor\base\LinkPager;
 use zhuravljov\yii\queue\monitor\filters\JobFilter;
 use zhuravljov\yii\queue\monitor\Module;
 use zhuravljov\yii\queue\monitor\widgets\FilterBar;
+
+$this->title = Module::t('main', 'Queue Monitor');
 
 if (JobFilter::restoreParams()) {
     $this->params['breadcrumbs'][] = ['label' => Module::t('main', 'Jobs'), 'url' => ['index']];
@@ -23,12 +26,12 @@ JobItemAsset::register($this);
 ?>
 <div class="monitor-job-index">
     <div class="row">
-        <div class="col-lg-3 col-lg-push-9">
+        <div class="col-lg-3 order-1">
             <?php FilterBar::begin() ?>
             <?= $this->render('_job-filter', compact('filter')) ?>
             <?php FilterBar::end() ?>
         </div>
-        <div class="col-lg-9 col-lg-pull-3">
+        <div class="col-lg-9 order-0">
             <?php Pjax::begin() ?>
             <?= ListView::widget([
                 'dataProvider' => new ActiveDataProvider([
@@ -44,6 +47,7 @@ JobItemAsset::register($this);
                 'emptyTextOptions' => ['class' => Module::t('main', 'empty lead')],
                 'itemView' => '_index-item',
                 'itemOptions' => ['tag' => null],
+                'pager' => ['class' => LinkPager::class],
             ]) ?>
             <?php Pjax::end() ?>
         </div>

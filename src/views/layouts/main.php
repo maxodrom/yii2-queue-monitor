@@ -4,10 +4,10 @@
  * @var string $content
  */
 
-use yii\bootstrap\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
+use yii\bootstrap5\Html;
+use yii\bootstrap5\Nav;
+use yii\bootstrap5\NavBar;
+use yii\bootstrap5\Breadcrumbs;
 use zhuravljov\yii\queue\monitor\assets\MainAsset;
 use zhuravljov\yii\queue\monitor\filters\JobFilter;
 use zhuravljov\yii\queue\monitor\filters\WorkerFilter;
@@ -33,10 +33,10 @@ MainAsset::register($this);
     NavBar::begin([
         'brandLabel' => Module::t('main', 'Queue Monitor'),
         'brandUrl' => ['/' . Module::getInstance()->id],
-        'options' => ['class' => 'navbar-inverse navbar-fixed-top'],
+        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top'],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'nav navbar-nav'],
+        'options' => ['class' => 'navbar-nav'],
         'items' => [
             [
                 'label' => Module::t('main', 'Jobs'),
@@ -51,7 +51,7 @@ MainAsset::register($this);
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'nav navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav ms-auto'],
         'items' => [
             [
                 'label' => Module::t('main', 'Application'),
@@ -64,7 +64,7 @@ MainAsset::register($this);
     <div class="container">
         <?= Breadcrumbs::widget([
             'homeLink' => false,
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'links' => $this->params['breadcrumbs'] ?? [],
         ]) ?>
         <?= $this->render('_alerts') ?>
         <?= $content ?>
